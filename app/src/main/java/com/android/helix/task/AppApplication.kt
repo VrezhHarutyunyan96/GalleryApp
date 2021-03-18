@@ -10,7 +10,7 @@ class AppApplication : Application() {
 
     init {
         instance = this
-    }git
+    }
 
     companion object {
         var isInternetAvailable: Boolean? = false
