@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="newsItem"
+            type="com.android.helix.task.data.local.entity.NewsEntity.NewsItemEntity" />
+
+        <variable
+            name="viewModel"
+            type="com.android.helix.task.ui.details.viewmodel.DetailsViewModel" />
+
+        <variable
+            name="date"
+            type="String" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/colorPrimary"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/titleDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_LX"
+                    android:gravity="center"
+                    android:text="@{newsItem.title}"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_size_X"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/categoryDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/margin_LX"
+                    android:gravity="center"
+                    android:text="@{newsItem.category}"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_L"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/titleDetail" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageDetail"
+                    image="@{newsItem.coverPhotoUrl}"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/photo_height"
+                    android:layout_margin="@dimen/margin_L"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/categoryDetail" />
+
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/imageLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="@dimen/margin_LX"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageDetail">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/photoLibraryImg"
+                        visibility="@{newsItem.gallery.size() != 0}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{()-> viewModel.onPhotoClick()}"
+                        android:src="@drawable/ic_photo" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/videoLibraryImg"
+                        visibility="@{newsItem.video.size() != 0}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:onClick="@{()->viewModel.onVideoClick()}"
+                        android:src="@drawable/ic_video" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/bodyDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_LX"
+                    android:text="@{newsItem.body}"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_size_M"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageLayout" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/shareUrl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_LX"
+                    android:autoLink="all"
+                    android:gravity="center_horizontal"
+                    android:text="@{newsItem.shareUrl}"
+                    android:textColorLink="@color/teal_700"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/bodyDetail" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/dateDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_LX"
+                    android:gravity="center_horizontal"
+                    android:text="@{date}"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/shareUrl" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
